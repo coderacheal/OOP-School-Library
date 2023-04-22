@@ -27,12 +27,12 @@ class App
 
   def list_all_books
     puts 'No Books Available' if @books.empty?
-    @books.each_with_index { |book| puts "Title: #{book.title}, Author: #{book.author}"}
+    @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
   end
 
   def list_all_people
     puts 'No person registered yet' if @people.empty?
-    @people.each { |person| puts " #{person.class} Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"}
+    @people.each { |person| puts " [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
   end
 
   def create_student
@@ -52,8 +52,8 @@ class App
     print "\nName: "
     name = gets.chomp.capitalize
     print "\nWhat is your specialization? "
-    specialization =  gets.chomp.capitalize
-    @people << Student.new(age, name, specialization)
+    specialization = gets.chomp.capitalize
+    @people << Teacher.new(age, name, specialization)
     puts 'Teacher created successfully!'
   end
 
@@ -99,8 +99,13 @@ class App
     puts 'Rental created successfully'
   end
 
-  def list_rental
-    puts 'These are all the books we have'
+  def list_rentals
+    print 'Enter ID: '
+    id = gets.chomp.to_i
+    puts 'Rentals:'
+    @rentals.each do |rental|
+      puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
+    end
   end
 
   def exceute_selected_option(choice)
@@ -116,7 +121,7 @@ class App
     when '5'
       create_rental
     when '6'
-      list_rental
+      list_rentals
     else
       puts 'You have entered an invalide value. Options range from 1 - 7'
     end
