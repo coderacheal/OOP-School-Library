@@ -27,12 +27,12 @@ class App
 
   def list_all_books
     puts 'No Books Available' if @books.empty?
-    @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}"}
+    @books.each_with_index { |book| puts "Title: #{book.title}, Author: #{book.author}"}
   end
 
   def list_all_people
     puts 'No person registered yet' if @people.empty?
-    @people.each { |person| puts "Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"}
+    @people.each { |person| puts " #{person.class} Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"}
   end
 
   def create_student
@@ -51,7 +51,7 @@ class App
     age = gets.chomp.to_i
     print "\nName: "
     name = gets.chomp.capitalize
-    print "\n What is your specialization? "
+    print "\nWhat is your specialization? "
     specialization =  gets.chomp.capitalize
     @people << Student.new(age, name, specialization)
     puts 'Teacher created successfully!'
@@ -70,11 +70,33 @@ class App
   end
 
   def create_book
+    print 'Title: '
+    title = gets.chomp
+    print "\nAuthor: "
+    author = gets.chomp.capitalize
+    @books << Book.new(title, author)
     puts 'Book created successfully!'
   end
 
   def create_rental
-    puts 'Rental created successfully!'
+    if @books.empty? || @people.empty?
+      puts 'There are no books or people to create a rental'
+      return
+    end
+    puts 'Select a book from the following list by number (not by id)'
+    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\"" }
+    book_id = gets.chomp.to_i
+
+    puts 'Select a person from the following list by number (not by id)'
+    @people.each_with_index do |person, index|
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+    person_id = gets.chomp.to_i
+
+    print 'Date: '
+    date = gets.chomp
+    @rentals << Rental.new(date, @books[book_id], @people[person_id])
+    puts 'Rental created successfully'
   end
 
   def list_rental

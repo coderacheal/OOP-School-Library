@@ -1,26 +1,34 @@
 class Book
-  attr_accessor :title, :author
+  attr_accessor :title, :author, :rentals
 
   def initialize(title, author)
     @title = title
     @author = author
     @rentals = []
   end
-
-  def add_rental(rental)
-    @rentals << rental
-    rental.book = self
+  
+  def add_rental(person, date)
+    Rental.new(date, self, person)
   end
 end
 
 class Rental
-  attr_accessor :date, :person, :book
+  attr_accessor :date, :book, :person
 
-  def initialize(date, person, book)
+  def initialize(date, book, person)
     @date = date
-    @person = person
     @book = book
-    @person.rentals << self
-    @book.rentals << self
+    @book.rentals << self if @book.is_a?(Book)
+
+    @person = person
+    @person.rentals << self if @person.is_a?(Person)
   end
 end
+
+
+#     @book.rentals << self if @book.is_a?(Book)
+
+#     @person = person
+#     @person.rentals << self if @person.is_a?(Person)
+#   end
+# end
