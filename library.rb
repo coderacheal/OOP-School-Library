@@ -24,11 +24,3 @@ class Rental
     @person.rentals << self if @person.is_a?(Person)
   end
 end
-
-
-#     @book.rentals << self if @book.is_a?(Book)
-
-#     @person = person
-#     @person.rentals << self if @person.is_a?(Person)
-#   end
-# end
