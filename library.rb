@@ -10,6 +10,14 @@ class Book
   def add_rental(person, date)
     Rental.new(date, self, person)
   end
+
+  def to_hash()
+    {
+      title: @title,
+      author: @author,
+      rentals: @rentals
+    }
+  end
 end
 
 class Rental
@@ -23,4 +31,12 @@ class Rental
     @person = person
     @person.rentals << self if @person.is_a?(Person)
   end
+
+  # def to_hash()
+  #   {
+  #     title: @title
+  #     author: @author,
+  #     rentals: @rentals
+  #   }
+  # end
 end

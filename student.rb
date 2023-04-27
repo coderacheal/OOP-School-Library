@@ -6,6 +6,14 @@ class Student < Person
     @classroom = classroom
   end
 
+  def to_hash()
+    {
+      age: @age.to_i,
+      name: @name,
+      parent_permission: @parent_permission
+    }
+  end
+
   def play_hooky
     '¯(ツ)/¯'
   end

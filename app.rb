@@ -1,28 +1,18 @@
 require_relative './library'
 require_relative './student'
 require_relative './teacher'
+require_relative './storage'
+require 'json'
 
 class App
   def initialize
     @books = []
     @rentals = []
     @people = []
-  end
-
-  def app_title
-    puts 'Welcome to School Library App!'
-  end
-
-  def all_options
-    puts ''
-    puts 'Please choose an option by entering a number'
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rentals for a given persons id'
-    puts '7 - Exit'
+    # @books = read_from_file('./database/books.json')
+    # @rentals = read_from_file('./database/rentals.json')
+    # @people = read_from_file('./database/people.json')
+    # create_file_if_not_exist('./database/students.json')
   end
 
   def list_all_books
@@ -36,24 +26,26 @@ class App
   end
 
   def create_student
-    print 'Age: '
-    age = gets.chomp.to_i
     print "\nName: "
     name = gets.chomp.capitalize
+    print "\nAge: "
+    age = gets.chomp.to_i
     print "\nDo you have parental permission? [Y/N]: "
     parental_permission = gets.downcase == 'y'
     @people << Student.new(age, name, parental_permission)
+    save_to_file(@people, './database/people.json')
     puts 'Student created successfully!'
   end
 
   def create_teacher
-    print 'Age: '
-    age = gets.chomp.to_i
     print "\nName: "
     name = gets.chomp.capitalize
+    print "\nAge: "
+    age = gets.chomp.to_i
     print "\nWhat is your specialization? "
     specialization = gets.chomp.capitalize
     @people << Teacher.new(age, name, specialization)
+    save_to_file(@people, './database/people.json')
     puts 'Teacher created successfully!'
   end
 
@@ -75,6 +67,7 @@ class App
     print "\nAuthor: "
     author = gets.chomp.capitalize
     @books << Book.new(title, author)
+    save_to_file(@books, './database/books.json')
     puts 'Book created successfully!'
   end
 
@@ -96,6 +89,7 @@ class App
     print 'Date: '
     date = gets.chomp
     @rentals << Rental.new(date, @books[book_id], @people[person_id])
+    save_to_file(@books, './database/books.json')
     puts 'Rental created successfully'
   end
 
@@ -130,5 +124,13 @@ class App
   def exit_library
     puts 'Sad to see you go'
     exit
+  end
+
+  private
+
+  def create_file_if_not_exist(file_path)
+    unless File.file?(file_path)
+      File.open(file_path, 'w') {}
+    end
   end
 end
