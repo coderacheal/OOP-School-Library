@@ -24,6 +24,30 @@ def main
     puts '7 - Exit'
   end
 
+  def exceute_selected_option(choice)
+    case choice
+    when '1'
+      list_all_books
+    when '2'
+      list_all_people
+    when '3'
+      create_person
+    when '4'
+      create_book
+    when '5'
+      create_rental
+    when '6'
+      list_rentals
+    else
+      puts 'You have entered an invalide value. Options range from 1 - 7'
+    end
+  end
+
+  def exit_library
+    puts 'Sad to see you go'
+    exit
+  end
+
   while choice != '7'
     app.all_options
     choice = gets.chomp

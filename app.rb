@@ -6,31 +6,33 @@ require 'json'
 
 class App
   def initialize
-    @books = []
-    @rentals = []
-    @people = []
-    # @books = read_from_file('./database/books.json')
-    # @rentals = read_from_file('./database/rentals.json')
-    # @people = read_from_file('./database/people.json')
-    # create_file_if_not_exist('./database/students.json')
+    @books = read_from_file('./database/books.json')
+    @rentals = read_from_file('./database/rentals.json')
+    @people = read_from_file('./database/people.json')
   end
 
   def list_all_books
+    puts '----------------------------'
+    @books = read_from_file('./database/books.json')
     puts 'No Books Available' if @books.empty?
-    @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
+    @books.each { |book| puts "Title: #{book['title']}, Author: #{book['author']}" }
+    puts '----------------------------'
   end
 
   def list_all_people
+    puts '----------------------------'
+    @people = read_from_file('./database/people.json')
     puts 'No person registered yet' if @people.empty?
-    @people.each { |person| puts " [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
+    @people.each { |person| puts "  Name: #{person['name']}, Age: #{person['age']}" }
+    puts '----------------------------'
   end
 
   def create_student
-    print "\nName: "
+    print "Name: "
     name = gets.chomp.capitalize
-    print "\nAge: "
+    print "Age: "
     age = gets.chomp.to_i
-    print "\nDo you have parental permission? [Y/N]: "
+    print "Do you have parental permission? [Y/N]: "
     parental_permission = gets.downcase == 'y'
     @people << Student.new(age, name, parental_permission)
     save_to_file(@people, './database/people.json')
@@ -64,7 +66,7 @@ class App
   def create_book
     print 'Title: '
     title = gets.chomp
-    print "\nAuthor: "
+    print "Author: "
     author = gets.chomp.capitalize
     @books << Book.new(title, author)
     save_to_file(@books, './database/books.json')
@@ -100,30 +102,6 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
-  end
-
-  def exceute_selected_option(choice)
-    case choice
-    when '1'
-      list_all_books
-    when '2'
-      list_all_people
-    when '3'
-      create_person
-    when '4'
-      create_book
-    when '5'
-      create_rental
-    when '6'
-      list_rentals
-    else
-      puts 'You have entered an invalide value. Options range from 1 - 7'
-    end
-  end
-
-  def exit_library
-    puts 'Sad to see you go'
-    exit
   end
 
   private

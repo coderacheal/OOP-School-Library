@@ -26,17 +26,17 @@ class Rental
   def initialize(date, book, person)
     @date = date
     @book = book
-    @book.rentals << self if @book.is_a?(Book)
-
     @person = person
+    @book.rentals << self if @book.is_a?(Book)
     @person.rentals << self if @person.is_a?(Person)
   end
 
-  # def to_hash()
+ 
+end
+ # def to_hash()
   #   {
   #     title: @title
   #     author: @author,
   #     rentals: @rentals
   #   }
   # end
-end
