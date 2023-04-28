@@ -30,4 +30,21 @@ RSpec.describe Solver do
       expect(solver.reverse('money')).to eq('yenom')
     end
   end
+
+  describe 'fizzbuzz test' do
+    it "should return 'fizz' if number is divisible by 3" do
+      solver = Solver.new
+      expect(solver.fizzbuzz(9)).to eq('fizz')
+    end
+
+    it "should return 'buzz' if number is divisible by 3" do
+      solver = Solver.new
+      expect(solver.fizzbuzz(10)).to eq('buzz')
+    end
+
+    it "should return 'fizzbuzz' if number is divisible by 3" do
+      solver = Solver.new
+      expect(solver.fizzbuzz(15)).to eq('fizzbuzz')
+    end
+  end
 end
