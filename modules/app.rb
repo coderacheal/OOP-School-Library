@@ -12,6 +12,25 @@ class App
     @people = read_from_file('./database/people.json')
   end
 
+  def app_title
+    puts '==================SCHOOL LIBRARY======================'
+    puts ''
+    puts 'Welcome to the School Library App!'
+    puts ''
+  end
+
+  def all_options
+    puts ''
+    puts 'Please choose an option by entering a number'
+    puts '1 - List all books'
+    puts '2 - List all people'
+    puts '3 - Create a person'
+    puts '4 - Create a book'
+    puts '5 - Create a rental'
+    puts '6 - List all rentals for a given persons id'
+    puts '7 - Exit'
+  end
+
   def list_all_books
     puts '----------------------------'
     @books = read_from_file('./database/books.json')
@@ -24,16 +43,18 @@ class App
     puts '----------------------------'
     @people = read_from_file('./database/people.json')
     puts 'No person registered yet' if @people.empty?
-    @people.each { |person| puts "#{[person['rank']]} Name: #{person['name']}, Age: #{person['age']}, ID: #{person['id']}" }
+    @people.each do |person|
+      puts "#{[person['rank']]} Name: #{person['name']}, Age: #{person['age']}, ID: #{person['id']}"
+    end
     puts '----------------------------'
   end
 
   def create_student
-    print "Name: "
+    print 'Name: '
     name = gets.chomp.capitalize
-    print "Age: "
+    print 'Age: '
     age = gets.chomp.to_i
-    print "Do you have parental permission? [Y/N]: "
+    print 'Do you have parental permission? [Y/N]: '
     parental_permission = gets.downcase == 'y'
     @people << Student.new(age, name, parental_permission)
     save_to_file(@people, './database/people.json')
@@ -41,11 +62,11 @@ class App
   end
 
   def create_teacher
-    print "\nName: "
+    print 'Name: '
     name = gets.chomp.capitalize
-    print "\nAge: "
+    print 'Age: '
     age = gets.chomp.to_i
-    print "\nWhat is your specialization? "
+    print 'What is your specialization? '
     specialization = gets.chomp.capitalize
     @people << Teacher.new(age, name, specialization)
     save_to_file(@people, './database/people.json')
@@ -67,7 +88,7 @@ class App
   def create_book
     print 'Title: '
     title = gets.chomp
-    print "Author: "
+    print 'Author: '
     author = gets.chomp.capitalize
     @books << Book.new(title, author)
     save_to_file(@books, './database/books.json')
@@ -89,7 +110,6 @@ class App
     puts 'Select a person from the following list by number (not by id)'
     @people.each_with_index do |person, index|
       puts "#{index}. Name: #{person['name']}, Age: #{person['age']}, ID: #{person['id']}"
-      # puts "#{index}. [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
     person_index = gets.chomp.to_i
 
@@ -106,15 +126,28 @@ class App
     id = gets.chomp.to_i
     puts 'All rentals of this users'
     @rentals.each do |rental|
-      puts "Date: #{rental['date']}, Book: \"#{rental['book']['title']}\" by #{rental['book']['author']}" if rental['person']['id'] == id
+      if rental['person']['id'] == id
+        puts "Date: #{rental['date']}, Book: \"#{rental['book']['title']}\" by #{rental['book']['author']}"
+      end
     end
   end
 
-  private
-
-  def create_file_if_not_exist(file_path)
-    unless File.file?(file_path)
-      File.open(file_path, 'w') {}
+  def exceute_selected_option(choice)
+    case choice
+    when '1'
+      list_all_books
+    when '2'
+      list_all_people
+    when '3'
+      create_person
+    when '4'
+      create_book
+    when '5'
+      create_rental
+    when '6'
+      list_rentals
+    else
+      puts 'You have entered an invalide value. Options range from 1 - 7'
     end
   end
 end
