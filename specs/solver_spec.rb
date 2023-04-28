@@ -19,4 +19,20 @@ RSpec.describe Solver do
             expect(solver.factorial(5)).to eq(120)
         end
     end
+
+
+    describe "reversing a string" do
+
+        it "hello should return olleh" do
+            solver = Solver.new
+            expect(solver.reverse('hello')).to eq('olleh')
+        end
+
+        it "money should return yenom" do
+            solver = Solver.new
+            expect(solver.reverse('money')).to eq('yenom')
+        end
+        
+    end
+    
 end
