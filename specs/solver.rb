@@ -5,5 +5,9 @@ class Solver
         else
           n * factorial(n-1)
         end
-      end
+    end
+
+    def reverse(word)
+      word.reverse
+    end
 end
