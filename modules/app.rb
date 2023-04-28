@@ -151,6 +151,3 @@ class App
     end
   end
 end
-
-
-def
