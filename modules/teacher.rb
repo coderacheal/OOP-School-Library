@@ -12,9 +12,11 @@ class Teacher < Person
 
   def to_hash()
     {
+      id: @id,
       age: @age.to_i,
       name: @name,
-      specialization: @specialization
+      specialization: @specialization,
+      rank: self.class.name
     }
   end
 end

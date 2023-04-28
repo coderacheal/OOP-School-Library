@@ -2,15 +2,17 @@ require_relative './person'
 
 class Student < Person
   def initialize(age, name, parent_permission, classroom = '')
-    super(id = id, age, name: name, parent_permission: parent_permission)
+    super(age, name: name, parent_permission: parent_permission)
     @classroom = classroom
   end
 
   def to_hash()
     {
-      age: @age.to_i,
+      id: @id,
       name: @name,
+      age: @age.to_i,
       parent_permission: @parent_permission,
+      rank: self.class
     }
   end
 

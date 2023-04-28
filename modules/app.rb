@@ -1,4 +1,5 @@
-require_relative './library'
+require_relative './book'
+require_relative './rental'
 require_relative './student'
 require_relative './teacher'
 require_relative './storage'
@@ -23,7 +24,7 @@ class App
     puts '----------------------------'
     @people = read_from_file('./database/people.json')
     puts 'No person registered yet' if @people.empty?
-    @people.each { |person| puts "  Name: #{person['name']}, Age: #{person['age']}" }
+    @people.each { |person| puts "#{[person['rank']]} Name: #{person['name']}, Age: #{person['age']}, ID: #{person['id']}" }
     puts '----------------------------'
   end
 
@@ -75,32 +76,37 @@ class App
 
   def create_rental
     if @books.empty? || @people.empty?
-      puts 'There are no books or people to create a rental'
+      puts 'There are no people to rent out to'
       return
     end
-    puts 'Select a book from the following list by number (not by id)'
-    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\"" }
-    book_id = gets.chomp.to_i
 
+    @books = read_from_file('./database/books.json')
+    puts 'Select a book from the following list by number (not by id)'
+    @books.each_with_index { |book, index| puts "#{index}. Title: #{book['title']}, Author: #{book['author']}" }
+    book_index = gets.chomp.to_i
+
+    @people = read_from_file('./database/people.json')
     puts 'Select a person from the following list by number (not by id)'
     @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      puts "#{index}. Name: #{person['name']}, Age: #{person['age']}, ID: #{person['id']}"
+      # puts "#{index}. [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
-    person_id = gets.chomp.to_i
+    person_index = gets.chomp.to_i
 
     print 'Date: '
     date = gets.chomp
-    @rentals << Rental.new(date, @books[book_id], @people[person_id])
-    save_to_file(@books, './database/books.json')
+    @rentals << Rental.new(date, @books[book_index], @people[person_index])
+    save_to_file(@rentals, './database/rentals.json')
     puts 'Rental created successfully'
   end
 
   def list_rentals
-    print 'Enter ID: '
+    @rentals = read_from_file('./database/rentals.json')
+    print 'Enter ID of Person: '
     id = gets.chomp.to_i
-    puts 'Rentals:'
+    puts 'All rentals of this users'
     @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
+      puts "Date: #{rental['date']}, Book: \"#{rental['book']['title']}\" by #{rental['book']['author']}" if rental['person']['id'] == id
     end
   end
 
