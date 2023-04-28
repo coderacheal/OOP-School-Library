@@ -90,6 +90,12 @@ Install this project with:
 - GitHub: [@coderacheal](https://github.com/coderacheal)
 - LinkedIn: [racheal-appiah-kubi](https://www.linkedin.com/racheal-appiah-kubi/)
 
+👤 **Christian Hakizimana**
+
+- GitHub: [@githubhandle](https://github.com/hakichris)
+- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/hakichris)
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
