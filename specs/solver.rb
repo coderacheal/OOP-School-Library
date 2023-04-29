@@ -31,9 +31,3 @@ class Solver
     end
   end
 end
-
-
-# solver = Solver.new
-
-# answer = solver.factorial(-1)
-# puts answer

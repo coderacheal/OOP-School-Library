@@ -93,7 +93,6 @@ Install this project with:
 👤 **Christian Hakizimana**
 
 - GitHub: [@githubhandle](https://github.com/hakichris)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
 - LinkedIn: [LinkedIn](https://linkedin.com/in/hakichris)
 
 
