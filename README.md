@@ -37,7 +37,7 @@
 <!-- <details>
   <summary>Client</summary> -->
 <ul>
-  <li><a href="#">RUBY</a></li>
+  <li><a href="https://www.ruby-lang.org/en/">RUBY</a></li>
 
 </ul>
 <!-- </details> -->
@@ -88,7 +88,12 @@ Install this project with:
 
 
 - GitHub: [@coderacheal](https://github.com/coderacheal)
-- LinkedIn: [racheal-appiah-kubi](https://www.linkedin.com/racheal-appiah-kubi/)
+- LinkedIn: [racheal-appiah-kubi](https://www.linkedin.com/in/racheal-appiah-kubi/)
+
+👤 **Christian Hakizimana**
+
+- GitHub: [@githubhandle](https://github.com/hakichris)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/hakichris)
 
 
 
