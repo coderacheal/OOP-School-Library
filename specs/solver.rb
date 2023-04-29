@@ -1,7 +1,15 @@
+class NegativeError < StandardError
+  def initialize(msg = 'You passed in a negative number')
+    super(msg)
+  end
+end
+
 class Solver
   def factorial(num)
     if num.zero?
       1
+    elsif num.negative?
+      raise NegativeError
     else
       num * factorial(num - 1)
     end
@@ -19,7 +27,13 @@ class Solver
     elsif (num % 5).zero?
       'buzz'
     else
-      n.to_s
+      num.to_s
     end
   end
 end
+
+
+# solver = Solver.new
+
+# answer = solver.factorial(-1)
+# puts answer

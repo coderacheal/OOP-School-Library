@@ -1,9 +1,8 @@
-# require 'rspec'
 require_relative 'solver'
 
 RSpec.describe Solver do
   describe 'checking factorial solutions' do
-    it 'return 1 when 0 is given' do
+    it 'should return 1 when 0 is given' do
       solver = Solver.new
       expect(solver.factorial(0)).to eq(1)
     end
@@ -13,19 +12,24 @@ RSpec.describe Solver do
       expect(solver.factorial(1)).to eq(1)
     end
 
-    it 'returns the correct value when given a positive integer' do
+    it 'should return the correct value when given a positive integer' do
       solver = Solver.new
       expect(solver.factorial(5)).to eq(120)
+    end
+
+    it 'raises an error when a negative number is passed in' do
+      solver = Solver.new
+      expect { solver.factorial(-1) }.to raise_error(NegativeError, 'You passed in a negative number')
     end
   end
 
   describe 'reversing a string' do
-    it 'hello should return olleh' do
+    it 'should return olleh when hello is passed' do
       solver = Solver.new
       expect(solver.reverse('hello')).to eq('olleh')
     end
 
-    it 'money should return yenom' do
+    it 'should return yenom when money is passed' do
       solver = Solver.new
       expect(solver.reverse('money')).to eq('yenom')
     end
@@ -34,17 +38,22 @@ RSpec.describe Solver do
   describe 'fizzbuzz test' do
     it "should return 'fizz' if number is divisible by 3" do
       solver = Solver.new
-      expect(solver.fizzbuzz(9)).to eq('fizz')
+      expect(solver.fizzbuzz(3)).to eq('fizz')
     end
 
-    it "should return 'buzz' if number is divisible by 3" do
+    it "should return 'buzz' if number is divisible by 5" do
       solver = Solver.new
-      expect(solver.fizzbuzz(10)).to eq('buzz')
+      expect(solver.fizzbuzz(5)).to eq('buzz')
     end
 
-    it "should return 'fizzbuzz' if number is divisible by 3" do
+    it "should return 'fizzbuzz' if number is divisible by 3 and 5" do
       solver = Solver.new
       expect(solver.fizzbuzz(15)).to eq('fizzbuzz')
+    end
+
+    it "should return '7' if number is not divisible by 3 or 5" do
+      solver = Solver.new
+      expect(solver.fizzbuzz(7)).to eq('7')
     end
   end
 end
